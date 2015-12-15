@@ -64,7 +64,7 @@ setup(
     author_email='okwrtdsh@gmail.com',
     maintainer='@okwrtdsh',
     maintainer_email='okwrtdsh@gmail.com',
-    url='git@github.com:okwrtdsh/django_extension_commands.git',
+    url='ssh://git@github.com:okwrtdsh/django_extension_commands.git',
     platforms=['any'],
     packages=packages,
     package_data=package_data,
