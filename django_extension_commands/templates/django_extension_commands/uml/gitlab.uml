@@ -1,7 +1,13 @@
 http://utils.uci-sys.jp/plantuml?@startuml;
-{% for app in app_list %}{% for model_list in app %}{% if model_list.models %}{% for model in model_list.models %}{% if abstract_show %}object {{ model.name }};
-{% else %}{% if not model.is_abstract %}object {{ model.name }};
-{% endif %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endfor %}{% for app in app_list %}{% for model_list in app %}{% if model_list.models %}{% for model in model_list.models %}{% if abstract_show %}{% for relation in model.relations %}{% if relation.type == 'inheritance' %}{{ model.name }} --|> {{ relation.target }};
+{% for app in app_list %}{% for model_list in app %}{% if model_list.models %}{% for model in model_list.models %}{% if abstract_show %}{% if package_show %}package {{ model.app_name }}{;
+  object {{ model.name }};
+};
+{% else %}object {{ model.name }};
+{% endif %}{% else %}{% if not model.is_abstract %}{% if package_show %}package {{ model.app_name }}{;
+  object {{ model.name }};
+};
+{% else %}object {{ model.name }};
+{% endif %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endfor %}{% for app in app_list %}{% for model_list in app %}{% if model_list.models %}{% for model in model_list.models %}{% if abstract_show %}{% for relation in model.relations %}{% if relation.type == 'inheritance' %}{{ model.name }} --|> {{ relation.target }};
 {% endif %}{% if relation.type == 'ForeignKey' %}{{ model.name }} "n" --o "1" {{ relation.target }};
 {% endif %}{% if relation.type == 'OneToOneField' %}{{ model.name }} "1" o-o "1" {{ relation.target }};
 {% endif %}{% if relation.type == 'ManyToManyField' %}{{ model.name }} "n" o-o "n" {{ relation.target }};
@@ -12,4 +18,3 @@ http://utils.uci-sys.jp/plantuml?@startuml;
 {% endif %}{% endfor %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endfor %}{% if not disable_fields %}{% for app in app_list %}{% for model_list in app %}{% if model_list.models %}{% for model in model_list.models %}{% if abstract_show %}{% for field in model.fields %}{% if not field.abstract %}{{ model.name }} : {{ field.name }} : {{ field.type }};
 {% endif %}{% endfor %}{% else %}{% if not model.is_abstract %}{% for field in model.fields %}{{ model.name }} : {{ field.name }} : {{ field.type }};
 {% endfor %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endfor %}{% endfor %}{% endif %}@enduml;
-

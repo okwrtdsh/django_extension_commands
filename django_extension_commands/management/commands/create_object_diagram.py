@@ -39,6 +39,8 @@ class Command(BaseCommand):
                     default=False, help="Output uml for GitLab style"),
         make_option('--abstract_show', '-A', action="store_true", dest="abstract_show",
                     default=False, help="Show Abstract Model Class"),
+        make_option('--package_show', '-P', action="store_true", dest="package_show",
+                    default=False, help="Show Package Name"),
     )
     option_list = BaseCommand.option_list + create_object_diagram_options
 

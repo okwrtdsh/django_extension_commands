@@ -49,6 +49,7 @@ def generate_uml(app_labels, **kwargs):
     exclude_models = parse_file_or_list(kwargs.get('exclude_models', ""))
     gitlab_style = kwargs.get("gitlab_style", False)
     abstract_show = kwargs.get("abstract_show", False)
+    package_show = kwargs.get("package_show", False)
 
     def skip_field(field):
         if exclude_columns:
@@ -280,6 +281,7 @@ def generate_uml(app_labels, **kwargs):
         'disable_fields': disable_fields,
         'app_list': app_list,
         'abstract_show': abstract_show,
+        'package_show': package_show,
     })
     uml = t.render(c)
 
