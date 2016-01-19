@@ -48,6 +48,7 @@ Options:
                         Do not sort fields
   -g, --gitlab_style    Output uml for GitLab style
   -A, --abstract_show   Show Abstract Model Class
+  -P, --package_show    Show Package Name
 ```
 
 ### Examples
