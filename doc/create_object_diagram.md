@@ -49,7 +49,6 @@ Options:
 ```
 
 ### Examples
-#### default
 ```bash
 python manage.py create_object_diagram -a
 ```
