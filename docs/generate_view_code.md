@@ -1,11 +1,11 @@
-# create_view_code
+# generate_view_code
 Viewのテンプレコードを生成するコマンド
 
 ### options
 ```
-Usage: manage.py create_view_code [options] [appname]
+Usage: manage.py generate_view_code [options] [appname]
 
-Create code for the specified app names.
+Generate code for the specified app names.
 
 Options:
   --version             show program's version number and exit
@@ -50,7 +50,7 @@ Options:
 
 ### Examples
 ```bash
-python manage.py create_view_code myapp -I MyModel -T edit
+python manage.py generate_view_code myapp -I MyModel -T edit
 ```
 ```python
 from django.shortcuts import render, redirect, get_object_or_404
@@ -75,7 +75,7 @@ def mymodel_edit(request, mymodel_id):
 ```
 
 ```bash
-python manage.py create_view_code myapp -I MyModel -T create -C
+python manage.py generate_view_code myapp -I MyModel -T create -C
 ```
 
 ```python

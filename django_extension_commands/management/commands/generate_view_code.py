@@ -6,21 +6,20 @@ import autopep8
 from django.core.management.base import CommandError
 from django.template import Context, Template, loader
 
-from django_extension_commands.management.create_code_base import CreateCodeBaseCommand
+from django_extension_commands.management.generate_code_base import GenerateCodeBaseCommand
 
 
+class Command(GenerateCodeBaseCommand):
 
-class Command(CreateCodeBaseCommand):
-
-    create_view_code_options = (
+    generate_view_code_options = (
     make_option('--class_based', '-C', action="store_true", dest="class_based",
         default=False, help="Output Class Based View Format"),
     make_option('--view_type', '-T', action="store", dest="view_type",
         default=None,
         help="Output View Type (list, create, edit, detail)"),
     )
-    option_list = CreateCodeBaseCommand.option_list +\
-        create_view_code_options
+    option_list = GenerateCodeBaseCommand.option_list +\
+        generate_view_code_options
 
 
     def validate_options(self, *args, **options):
@@ -35,7 +34,7 @@ class Command(CreateCodeBaseCommand):
                 "Need --view_type option. Choose one from (list, create, edit, detail).")
 
 
-    def creates_code(self, app_list, **options):
+    def generate_code(self, app_list, **options):
         t = loader.get_template(
             'django_extension_commands/view/{0}/{1}.tpl'.format(
                 'cbv' if self.class_based else 'fbv',
