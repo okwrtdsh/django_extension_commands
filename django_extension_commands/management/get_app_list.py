@@ -121,7 +121,7 @@ def get_app_list(app_labels, **kwargs):
                     if label.islower():
                         label = label.capitalize()
                 else:
-                    label = field.name
+                    label = force_bytes(field.name)
 
                 t = type(field).__name__
                 if isinstance(field, (OneToOneField, ForeignKey)):
@@ -136,6 +136,7 @@ def get_app_list(app_labels, **kwargs):
                     'abstract': field in abstract_fields,
                     'relation': isinstance(field, RelatedField),
                     'primary_key': field.primary_key,
+                    'verbose_name': field.verbose_name if hasattr(field, 'verbose_name') else '',
                 })
 
             attributes = [field for field in appmodel._meta.local_fields]
@@ -172,14 +173,14 @@ def get_app_list(app_labels, **kwargs):
                     if label.islower():
                         label = label.capitalize()
                 else:
-                    label = field.name
+                    label = force_bytes(field.name)
 
                 # show related field name
                 if hasattr(field, 'related_query_name'):
                     related_query_name = field.related_query_name()
                     if verbose_names and related_query_name.islower():
                         related_query_name = related_query_name.replace('_', ' ').capitalize()
-                    label += ' (%s)' % related_query_name
+                    label += force_bytes(' ({})'.format(related_query_name))
 
                 # handle self-relationships and lazy-relationships
                 if isinstance(field.rel.to, six.string_types):
