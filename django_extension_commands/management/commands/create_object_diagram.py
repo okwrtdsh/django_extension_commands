@@ -33,9 +33,16 @@ class Command(GenerateCodeBaseCommand):
                             "This can lead to the incorrect template rendering. "
                             "Please, check the settings.")
 
+        # abstract modelがduplicateしないように
+        model_list = []
+        for app_context in app_list:
+            for model in app_context['models']:
+                if model not in model_list:
+                    model_list.append(model)
+
         c = Context({
             'disable_fields': options.get('disable_fields', False),
-            'app_list': app_list,
+            'model_list': model_list,
             'abstract_show': self.abstract_show,
             'package_show': self.package_show,
         })
