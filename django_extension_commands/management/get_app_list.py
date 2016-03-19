@@ -137,6 +137,9 @@ def get_app_list(app_labels, **kwargs):
                     'relation': isinstance(field, RelatedField),
                     'primary_key': field.primary_key,
                     'verbose_name': field.verbose_name if hasattr(field, 'verbose_name') else '',
+                    'auto_now': field.auto_now if hasattr(field, 'auto_now') else False,
+                    'auto_now_add': field.auto_now_add if hasattr(field, 'auto_now_add') else False,
+                    'auto_created': field.auto_created if hasattr(field, 'auto_created') else False,
                 })
 
             attributes = [field for field in appmodel._meta.local_fields]

@@ -7,6 +7,7 @@ from django_cbv_utils.views import SearchListView
 {% block code %}
 class {{ model.name }}ListView(SearchListView):
     model = {{ model.name }}
+    form_class = {{ model.name }}ListSearchForm
     template_name = "{{ model.name|lower }}_list.html"
     context_object_name = "{{ model.name|lower }}s"
     paginate_by = 20
