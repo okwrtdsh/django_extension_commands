@@ -12,11 +12,11 @@ from django_extension_commands.management.generate_code_base import GenerateCode
 class Command(GenerateCodeBaseCommand):
 
     generate_view_code_options = (
-    make_option('--class_based', '-C', action="store_true", dest="class_based",
-        default=False, help="Output Class Based View Format"),
-    make_option('--view_type', '-T', action="store", dest="view_type",
-        default=None,
-        help="Output View Type (list, create, edit, detail)"),
+        make_option('--class_based', '-C', action="store_true", dest="class_based",
+            default=False, help="Output Class Based View Format"),
+        make_option('--view_type', '-T', action="store", dest="view_type",
+            default=None,
+            help="Output View Type (list, create, edit, detail)"),
     )
     option_list = GenerateCodeBaseCommand.option_list +\
         generate_view_code_options

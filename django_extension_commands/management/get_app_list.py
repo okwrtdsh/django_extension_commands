@@ -114,6 +114,11 @@ def get_app_list(app_labels, **kwargs):
             else:
                 model['label'] = model['name']
 
+            if appmodel._meta.verbose_name:
+                model['verbose_name'] = force_bytes(appmodel._meta.verbose_name)
+            else:
+                model['verbose_name'] = model['name']
+
             # model attributes
             def add_attributes(field):
                 if verbose_names and field.verbose_name:
@@ -140,6 +145,7 @@ def get_app_list(app_labels, **kwargs):
                     'auto_now': field.auto_now if hasattr(field, 'auto_now') else False,
                     'auto_now_add': field.auto_now_add if hasattr(field, 'auto_now_add') else False,
                     'auto_created': field.auto_created if hasattr(field, 'auto_created') else False,
+                    'choices': bool(getattr(field, 'choices')),
                 })
 
             attributes = [field for field in appmodel._meta.local_fields]

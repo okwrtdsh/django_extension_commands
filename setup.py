@@ -61,6 +61,6 @@ setup(
     platforms=['any'],
     packages=packages,
     package_data=package_data,
-    install_requires=['six>=1.2', 'autopep8>=1.2.2'],
+    install_requires=['six>=1.2', 'autopep8>=1.2.2', 'beautifulsoup4>=4.4.1'],
 )
 

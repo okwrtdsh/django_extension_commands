@@ -12,9 +12,9 @@ from django_extension_commands.management.generate_code_base import GenerateCode
 class Command(GenerateCodeBaseCommand):
 
     generate_form_code_options = (
-    make_option('--form_type', '-T', action="store", dest="form_type",
-        default=None,
-        help="Output Form Type (list, create, edit)"),
+        make_option('--form_type', '-T', action="store", dest="form_type",
+            default=None,
+            help="Output Form Type (list, create, edit)"),
     )
     option_list = GenerateCodeBaseCommand.option_list +\
         generate_form_code_options
