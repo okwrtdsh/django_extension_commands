@@ -51,7 +51,7 @@ Options:
 
 ### Examples
 ```bash
-python manage.py generate_template_code myapp -I MyModel -T list
+python manage.py generate_template_code myapp -I MyModel -T list -B
 ```
 
 ```html
@@ -65,20 +65,52 @@ python manage.py generate_template_code myapp -I MyModel -T list
 {% block content %}
 {% pagingnavi form page_obj %}
 <div class="panel panel-default">
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>ID</th><th>作成日時</th><th>有効</th><th>更新日時</th><th>詳細</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for mymodel in mymodels %}
-      <tr>
-        <td>{{ mymodel.id }}</td><td>{{ mymodel.created }}</td><td>{{ mymodel.enabled }}</td><td>{{ mymodel.updated }}</td><td><a href="{% url 'mymodel:detail' mymodel.id %}"><button type="button" class="btn btn-default">詳細</button></a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+ <table class="table table-bordered table-condensed">
+  <thead>
+   <tr>
+    <th>
+     ID
+    </th>
+    <th>
+     作成日時
+    </th>
+    <th>
+     有効
+    </th>
+    <th>
+     更新日時
+    </th>
+    <th>
+     詳細
+    </th>
+   </tr>
+  </thead>
+  <tbody>
+   {% for mymodel in mymodels %}
+   <tr>
+    <td>
+     {{ mymodel.id }}
+    </td>
+    <td>
+     {{ mymodel.created }}
+    </td>
+    <td>
+     {{ mymodel.enabled }}
+    </td>
+    <td>
+     {{ mymodel.updated }}
+    </td>
+    <td>
+     <a href="{% url 'mymodel:detail' mymodel.id %}">
+      <button class="btn btn-default" type="button">
+       詳細
+      </button>
+     </a>
+    </td>
+   </tr>
+   {% endfor %}
+  </tbody>
+ </table>
 </div>
 {% endblock %}
 {# End MyModel Template #}
