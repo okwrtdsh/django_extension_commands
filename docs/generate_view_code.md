@@ -81,18 +81,15 @@ python manage.py generate_view_code myapp -I MyModel -T create -C
 ```python
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
-from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 
-class MyModelCreateView(CreateView):
+class MyModelCreateView(SuccessMessageMixin, CreateView):
     model = MyModel
     form_class = MyModelCreateForm
     success_url = reverse_lazy('mymodel:list')
     template_name = "mymodel_create.html"
-
-    def form_valid(self, form):
-        messages.success(self.request, "登録しました。", extra_tags="alert-success")
-        return super(MyModelCreateView, self).form_valid(form)
+    success_message = '登録しました。'
 ```
 
 
