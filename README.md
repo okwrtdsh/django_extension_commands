@@ -9,3 +9,6 @@ Viewのテンプレコードを生成するコマンド
 
 ## [generate_form_code](./docs/generate_form_code.md)
 Formのテンプレコードを生成するコマンド
+
+## [generate_template_code](./docs/generate_template_code.md)
+Templateのテンプレコードを生成するコマンド
