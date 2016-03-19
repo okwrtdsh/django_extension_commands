@@ -33,7 +33,7 @@ class Command(GenerateCodeBaseCommand):
                             "This can lead to the incorrect template rendering. "
                             "Please, check the settings.")
 
-        # abstract modelがduplicateしないように
+        # unique
         model_list = []
         for app_context in app_list:
             for model in app_context['models']:
