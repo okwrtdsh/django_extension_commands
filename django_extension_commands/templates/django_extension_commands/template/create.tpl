@@ -1,8 +1,5 @@
 {% extends "django_extension_commands/template/base.tpl" %}
 
-{% block load %}{% templatetag openblock %} load crispy_forms_tags {% templatetag closeblock %}
-{% endblock %}
-
 {% block title %}{{ model.verbose_name }}登録{% endblock %}
 
 {% block content %}
@@ -13,10 +10,15 @@
     </div>
     <div class="panel-body">
       <table class="table table-bordered">
-        {% templatetag openvariable %} form|crispy {% templatetag closevariable %}
+        <tbody>{% for field in model.fields %}{% if not field.auto_now and not field.auto_now_add and not field.auto_created %}
+          <tr {% templatetag openblock %} if form.{{ field.name }}.errors {% templatetag closeblock %}class="alert-danger"{% templatetag openblock %} endif {% templatetag closeblock %}>
+            <th>{% templatetag openvariable %} form.{{ field.name }}.label {% templatetag closevariable %}</th>
+            <td>{% templatetag openvariable %} form.{{ field.name }}.errors {% templatetag closevariable %}{% templatetag openvariable %} form.{{ field.name }} {% templatetag closevariable %}</td>
+          </tr>{% endif %}{% endfor %}
+        <tbody>
       </table>
     </div>
-    <div class="panel-footer align-center">
+    <div class="panel-footer text-center">
       <button type="submit" class="btn btn-primary">登録</button>
     </div>
   </div>

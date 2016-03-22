@@ -12,7 +12,7 @@
       </tbody>
     </table>
   </div>
-  <div class="panel-footer align-center">
+  <div class="panel-footer text-center">
     <a href="{% templatetag openblock %} url '{{ model.name|lower }}:list' {% templatetag closeblock %}"><button type="button" class="btn btn-default">戻る</button></a>
     <a href="{% templatetag openblock %} url '{{ model.name|lower }}:edit' {{ model.name|lower }}.id {% templatetag closeblock %}"><button type="button" class="btn btn-primary">修正</button></a>
   </div>
