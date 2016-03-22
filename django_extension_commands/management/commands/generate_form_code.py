@@ -43,6 +43,13 @@ class Command(GenerateCodeBaseCommand):
 
         c = Context({
             'app_list': app_list,
+            'char_fields': [
+                "SlugField",
+                "URLField",
+                "EmailField",
+                "FileField",
+                "IPAddressField",
+            ]
         })
         code = t.render(c)
         code = autopep8.fix_code(code)
