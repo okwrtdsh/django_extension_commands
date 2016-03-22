@@ -34,8 +34,8 @@ class GenerateCodeBaseCommand(BaseCommand):
                     help='Do not include inheritance arrows'),
         make_option('--hide-relations-from-fields', '-R', action='store_false', dest="relations_as_fields",
                     default=True, help="Do not show relations as fields in the uml."),
-        make_option('--disable-sort-fields', '-S', action="store_false", dest="sort_fields",
-                    default=True, help="Do not sort fields"),
+        make_option('--sort-fields', '-S', action="store_true", dest="sort_fields",
+                    default=False, help="Sort fields"),
     )
     option_list = BaseCommand.option_list + generate_code_options
     help = "Generate code for the specified app names."

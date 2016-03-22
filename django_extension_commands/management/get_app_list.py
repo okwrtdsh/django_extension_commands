@@ -38,7 +38,7 @@ def get_app_list(app_labels, **kwargs):
     verbose_names = kwargs.get('verbose_names', False)
     inheritance = kwargs.get('inheritance', True)
     relations_as_fields = kwargs.get("relations_as_fields", True)
-    sort_fields = kwargs.get("sort_fields", True)
+    sort_fields = kwargs.get("sort_fields", False)
     language = kwargs.get('language', None)
     if language is not None:
         activate_language(language)
