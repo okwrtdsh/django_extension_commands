@@ -12,7 +12,8 @@ from django_extension_commands.management.generate_code_base import GenerateCode
 class Command(GenerateCodeBaseCommand):
 
     generate_view_code_options = (
-        make_option('--class_based', '-C', action="store_true", dest="class_based",
+        make_option('--function_based', '-F', action="store_true",
+            dest="function_based",
             default=False, help="Output Class Based View Format"),
         make_option('--view_type', '-T', action="store", dest="view_type",
             default=None,
@@ -23,7 +24,7 @@ class Command(GenerateCodeBaseCommand):
 
 
     def validate_options(self, *args, **options):
-        self.class_based = options.get("class_based", False)
+        self.function_based = options.get("function_based", False)
         view_type = options.get("view_type")
         if view_type is None:
             raise CommandError("Need --view_type option.")
@@ -37,7 +38,7 @@ class Command(GenerateCodeBaseCommand):
     def generate_code(self, app_list, **options):
         t = loader.get_template(
             'django_extension_commands/view/{0}/{1}.tpl'.format(
-                'cbv' if self.class_based else 'fbv',
+                'fbv' if self.function_based else 'cbv',
                 self.view_type
             ))
         if not isinstance(t, Template) and not (hasattr(t, 'template') and isinstance(t.template, Template)):
