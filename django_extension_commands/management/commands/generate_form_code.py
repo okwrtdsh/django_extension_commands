@@ -4,20 +4,18 @@ from optparse import NO_DEFAULT, make_option
 import autopep8
 
 from django.core.management.base import CommandError
-from django.template import Context, Template, loader
+from django.template import Template, loader
 
 from django_extension_commands.management.generate_code_base import GenerateCodeBaseCommand
 
 
 class Command(GenerateCodeBaseCommand):
 
-    generate_form_code_options = (
-        make_option('--form_type', '-T', action="store", dest="form_type",
-            default=None,
-            help="Output Form Type (list, create, edit)"),
-    )
-    option_list = GenerateCodeBaseCommand.option_list +\
-        generate_form_code_options
+    def add_arguments(self, parser):
+        super().add_arguments(parser)
+        parser.add_argument('--form_type', '-T', action="store", dest="form_type",
+                            default=None,
+                            help="Output Form Type (list, create, edit)"),
 
 
     def validate_options(self, *args, **options):
@@ -41,7 +39,7 @@ class Command(GenerateCodeBaseCommand):
                             "This can lead to the incorrect template rendering. "
                             "Please, check the settings.")
 
-        c = Context({
+        c = {
             'app_list': app_list,
             'char_fields': [
                 "SlugField",
@@ -50,7 +48,7 @@ class Command(GenerateCodeBaseCommand):
                 "FileField",
                 "IPAddressField",
             ]
-        })
+        }
         code = t.render(c)
         code = autopep8.fix_code(code)
         return code

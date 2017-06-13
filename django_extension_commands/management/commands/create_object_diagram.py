@@ -1,21 +1,19 @@
-from optparse import make_option
-from django.template import Context, Template, loader
+from django.template import Template, loader
 from django_extension_commands.management.generate_code_base import GenerateCodeBaseCommand
 
 
 class Command(GenerateCodeBaseCommand):
 
-    create_object_diagram_options = (
-        make_option('--gitlab_style', '-g', action="store_true", dest="gitlab_style",
-                    default=False, help="Output uml for GitLab style"),
-        make_option('--abstract_show', '-A', action="store_true", dest="abstract_show",
-                    default=False, help="Show Abstract Model Class"),
-        make_option('--package_show', '-P', action="store_true", dest="package_show",
-                    default=False, help="Show Package Name"),
-    )
-    option_list = GenerateCodeBaseCommand.option_list +\
-        create_object_diagram_options
     help = "Create PlantUml code for the specified app names."
+
+    def add_arguments(self, parser):
+        super().add_arguments(parser)
+        parser.add_argument('--gitlab_style', '-g', action="store_true", dest="gitlab_style",
+                            default=False, help="Output uml for GitLab style"),
+        parser.add_argument('--abstract_show', '-A', action="store_true", dest="abstract_show",
+                            default=False, help="Show Abstract Model Class"),
+        parser.add_argument('--package_show', '-P', action="store_true", dest="package_show",
+                            default=False, help="Show Package Name"),
 
     def validate_options(self, *args, **options):
         self.gitlab_style = options.get("gitlab_style", False)
@@ -40,12 +38,12 @@ class Command(GenerateCodeBaseCommand):
                 if model not in model_list:
                     model_list.append(model)
 
-        c = Context({
+        c = {
             'disable_fields': options.get('disable_fields', False),
             'model_list': model_list,
             'abstract_show': self.abstract_show,
             'package_show': self.package_show,
-        })
+        }
         uml = t.render(c)
 
         if self.gitlab_style:

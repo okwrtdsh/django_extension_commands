@@ -50,7 +50,7 @@ for dirpath, dirnames, filenames in os.walk(extensions_dir):
 
 setup(
     name='django_extension_commands',
-    version='0.1.0',
+    version='0.2.0',
     description="Extension Commands for Django",
     long_description="""Extension Commands for Django""",
     author='@okwrtdsh',

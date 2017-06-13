@@ -4,22 +4,20 @@ from optparse import NO_DEFAULT, make_option
 from bs4 import BeautifulSoup
 
 from django.core.management.base import CommandError
-from django.template import Context, Template, loader
+from django.template import Template, loader
 
 from django_extension_commands.management.generate_code_base import GenerateCodeBaseCommand
 
 
 class Command(GenerateCodeBaseCommand):
 
-    generate_template_code_options = (
-        make_option('--template_type', '-T', action="store", dest="template_type",
-            default=None,
-            help="Output template Type (list, create, edit, detail)"),
-        make_option('--use_beautiful_soup', '-B', action="store_true", dest="use_beautiful_soup",
-            default=False, help="Use BeautifulSoup"),
-    )
-    option_list = GenerateCodeBaseCommand.option_list +\
-        generate_template_code_options
+    def add_arguments(self, parser):
+        super().add_arguments(parser)
+        parser.add_argument('--template_type', '-T', action="store", dest="template_type",
+                            default=None,
+                            help="Output template Type (list, create, edit, detail)"),
+        parser.add_argument('--use_beautiful_soup', '-B', action="store_true", dest="use_beautiful_soup",
+                            default=False, help="Use BeautifulSoup"),
 
 
     def validate_options(self, *args, **options):
@@ -44,9 +42,9 @@ class Command(GenerateCodeBaseCommand):
                             "This can lead to the incorrect template rendering. "
                             "Please, check the settings.")
 
-        c = Context({
+        c = {
             'app_list': app_list,
-        })
+        }
         code = t.render(c)
         if self.use_beautiful_soup:
             code = BeautifulSoup(code, "html.parser").prettify()

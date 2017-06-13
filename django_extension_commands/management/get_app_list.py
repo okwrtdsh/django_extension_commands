@@ -5,7 +5,7 @@ import six
 from django.db.models.fields.related import (
     ForeignKey, ManyToManyField, OneToOneField, RelatedField,
 )
-from django.template import Context, Template, loader
+from django.template import Template, loader
 from django.utils.safestring import mark_safe
 from django.utils.translation import activate as activate_language
 
@@ -62,12 +62,12 @@ def get_app_list(app_labels, **kwargs):
         app = get_app(app_label)
         if not app:
             continue
-        app_context = Context({
+        app_context = {
             'name': '"%s"' % app.__name__,
             'app_name': "%s" % '.'.join(app.__name__.split('.')[:-1]),
             'cluster_app_name': "cluster_%s" % app.__name__.replace(".", "_"),
             'models': []
-        })
+        }
 
         appmodels = list(get_models_compat(app_label))
         abstract_models = []
